@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { supabase } from './supabaseClient'
 import Auth from './Auth'
 import Profile from './Profile'
+import Swipe from './Swipe'
 import './App.css'
 
 export default function App() {
@@ -30,25 +31,8 @@ export default function App() {
   }
 
   if (loading) return <div>Cargando...</div>
-
-  if (!session) {
-    return <Auth />
-  }
-
-  if (!userProfile?.full_name) {
-    return <Profile session={session} onProfileComplete={() => fetchUserProfile(session.user.id)} />
-  }
-
-  return (
-    <div className="app-container">
-      <h1>¡Bienvenido a Mate App!</h1>
-      <p>Email: {session.user.email}</p>
-      <p>Nombre: {userProfile.full_name}</p>
-      <p>Ciudad: {userProfile.city}</p>
-      <p>Cómo tomas mate: {userProfile.how_they_drink}</p>
-      <button onClick={() => supabase.auth.signOut()}>
-        Salir
-      </button>
-    </div>
-  )
+  if (!session) return <Auth />
+  if (!userProfile?.full_name) return <Profile session={session} onProfileComplete={() => fetchUserProfile(session.user.id)} />
+  
+  return <Swipe />
 }
