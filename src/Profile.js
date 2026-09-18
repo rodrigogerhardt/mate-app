@@ -71,7 +71,7 @@ export default function Profile({ session, onProfileComplete }) {
       <p>¿Qué vibe buscas?</p>
       <label>
         <input
-          typckbox"
+          type="checkbox"
           checked={mood.includes('charla_profunda')}
           onChange={() => handleMoodToggle('charla_profunda')}
         />
