@@ -5,7 +5,7 @@ import './Profile.css'
 export default function Profile({ session, onProfileComplete }) {
   const [fullName, setFullName] = useState('')
   const [city, setCity] = useState('')
-  const [howTheyDrink, setHowTheyDrink] = useState('tereque')
+  const [howTheyDrink, setHowTheyDrink] = useState('tereré')
   const [mood, setMood] = useState([])
   
   const [loading, setLoading] = useState(false)
@@ -61,7 +61,7 @@ export default function Profile({ session, onProfileComplete }) {
       />
 
       <select value={howTheyDrink} onChange={(e) => setHowTheyDrink(e.target.value)}>
-        <option value="tereque">Tereque</option>
+        <option value="tereré">Tereque</option>
         <option value="lavado">Lavado</option>
         <option value="amargo">Amargo</option>
         <option value="dulce">Dulce</option>
