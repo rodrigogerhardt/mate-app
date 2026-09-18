@@ -7,7 +7,7 @@ export default function Profile({ session, onProfileComplete }) {
   const [city, setCity] = useState('')
   const [howTheyDrink, setHowTheyDrink] = useState('tereque')
   const [mood, setMood] = useState([])
-  const [avatar, setAvatar] = useState(null)
+  
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
