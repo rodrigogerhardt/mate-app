@@ -61,7 +61,7 @@ export default function Profile({ session, onProfileComplete }) {
       />
 
       <select value={howTheyDrink} onChange={(e) => setHowTheyDrink(e.target.value)}>
-        <option value="tereré">Tereque</option>
+        <option value="tereré">Tereré</option>
         <option value="lavado">Lavado</option>
         <option value="amargo">Amargo</option>
         <option value="dulce">Dulce</option>
