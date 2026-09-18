@@ -12,6 +12,15 @@ export default function Swipe() {
     })
   }, [])
 
+  const handleMatch = async (matchedUserId) => {
+    const { data: { session } } = await supabase.auth.getSession()
+    await supabase.from("matches").insert({
+      user_id: session.user.id,
+      matched_user_id: matchedUserId
+    })
+    if (index < profiles.length - 1) setIndex(index + 1)
+  }
+
   if (!profiles.length) return <div style={{padding: '2rem'}}>Cargando...</div>
   
   const profile = profiles[index]
@@ -30,3 +39,4 @@ export default function Swipe() {
     </div>
   )
 }
+onClick={() => handleMatch(profile.id)}
