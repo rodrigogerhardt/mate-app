@@ -7,8 +7,8 @@ export default function Swipe() {
 
   useEffect(() => {
     supabase.from('users').select('*').limit(20).then(({ data }) => {
-      setProfiles(data || []
-      console.log('Profiles:', data))
+      setProfiles(data || [])
+      console.log("Profiles:", data)
     })
   }, [])
 
