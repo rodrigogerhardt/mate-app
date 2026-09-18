@@ -22,7 +22,7 @@ export default function Swipe() {
         <p>📍 {profile.city || 'Desconocida'}</p>
         <p>Mate: {profile.how_they_drink || '?'}</p>
         <div style={{marginTop: '2rem'}}>
-          <button onClick={() => index < profiles.length - 1 && setIndex(index + 1)} style={{padding: '10px 20px', margin: '5px', cursorpointer'}}>❌ No</button>
+          <button onClick={() => index < profiles.length - 1 && setIndex(index + 1)} style={{padding: '10px 20px', margin: '5px', cursor: 'pointer'}}>❌ No</button>
           <button onClick={() => alert('Match con ' + profile.full_name)} style={{padding: '10px 20px', margin: '5px', cursor: 'pointer'}}>✅ Sí</button>
         </div>
       </div>
