@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import { supabase } from './supabaseClient'
 import Auth from './Auth'
 import Profile from './Profile'
-import Swipe from './Swipe
-import Matches from './Matches''
+import Swipe from './Swipe'
+import Matches from './Matches'
 import './App.css'
 
 export default function App() {
