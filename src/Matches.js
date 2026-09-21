@@ -27,7 +27,7 @@ export default function Matches({ session }) {
       <h1>Tus matches 🎉</h1>
       {matches.map((match) => (
         <div key={match.matched_user_id} style={{background: 'white', padding: '1rem', margin: '1rem 0', borderRadius: '8px'}}>
-          >{match.users.full_name}</h3>
+          <h3>{match.users.full_name}</h3>
           <p>📍 {match.users.city}</p>
           <p>Mate: {match.users.how_they_drink}</p>
         </div>

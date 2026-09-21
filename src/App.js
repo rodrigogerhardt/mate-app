@@ -10,6 +10,7 @@ export default function App() {
   const [session, setSession] = useState(null)
   const [loading, setLoading] = useState(true)
   const [userProfile, setUserProfile] = useState(null)
+  const [view, setView] = useState("swipe")
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -34,7 +35,6 @@ export default function App() {
   if (loading) return <div>Cargando...</div>
   if (!session) return <Auth />
   if (!userProfile?.full_name) return <Profile session={session} onProfileComplete={() => fetchUserProfile(session.user.id)} />
-  const [view, setView] = useState('swipe')
   return (
     <div>
       <div style={{textAlign: 'center', padding: '1rem'}}>
