@@ -6,18 +6,17 @@ export default function Matches({ session }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    useEffect(() => {
+    const fetchMatches = async () => {
+      const { data } = await supabase
+        .from('matches')
+        .select('matched_user_id, users!matches_matched_user_id_fkey(full_name, city, how_they_drink)')
+        .eq('user_id', session.user.id)
+      setMatches(data || [])
+      setLoading(false)
+    }
     fetchMatches()
-  }, [])
-
-  const fetchMatches = async () => {
-    const { data } = await supabase
-      .from('matches')
-      .select('matched_user_id, users!matches_matched_user_id_fkey(full_name, city, how_they_drink)')
-      .eq('user_id', session.user.id)
-    
-    setMatches(data || [])
-    setLoading(false)
-  }
+  }, [])  }
 
   if (loading) return <div style={{padding: '2rem'}}>Cargando matches...</div>
   if (!matches.length) return <div style={{padding: '2rem'}}>Sin matches aún</div>
