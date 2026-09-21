@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import { supabase } from './supabaseClient'
 import Auth from './Auth'
 import Profile from './Profile'
-import Swipe from './Swipe'
+import Swipe from './Swipe
+import Matches from './Matches''
 import './App.css'
 
 export default function App() {
@@ -33,6 +34,13 @@ export default function App() {
   if (loading) return <div>Cargando...</div>
   if (!session) return <Auth />
   if (!userProfile?.full_name) return <Profile session={session} onProfileComplete={() => fetchUserProfile(session.user.id)} />
-  
-  return <Swipe />
-}
+  const [view, setView] = useState('swipe')
+  return (
+    <div>
+      <div style={{textAlign: 'center', padding: '1rem'}}>
+        <button onClick={() => setView('swipe')} style={{marginRight: '10px', padding: '8px 15px'}}>Swipe</button>
+        <button onClick={() => setView('matches')} style={{padding: '8px 15px'}}>Mis Matches</button>
+      </div>
+      {view === 'swipe' ? <Swipe /> : <Matches session={session} />}
+    </div>
+  )}
