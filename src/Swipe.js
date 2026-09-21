@@ -33,10 +33,9 @@ export default function Swipe() {
         <p>Mate: {profile.how_they_drink || '?'}</p>
         <div style={{marginTop: '2rem'}}>
           <button onClick={() => setIndex((index + 1) % profiles.length)} style={{padding: '10px 20px', margin: '5px', cursor: 'pointer'}}>❌ No</button>
-          <button onClick={() => alert('Match con ' + profile.full_name)} style={{padding: '10px 20px', margin: '5px', cursor: 'pointer'}}>✅ Sí</button>
+          <button onClick={() => handleMatch(profile.id)} style={{padding: '10px 20px', margin: '5px', cursor: 'pointer'}}>✅ Sí</button>
         </div>
       </div>
     </div>
   )
 }
-onClick={() => handleMatch(profile.id)}
