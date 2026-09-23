@@ -4,6 +4,8 @@ import Auth from './Auth'
 import Profile from './Profile'
 import Swipe from './Swipe'
 import Matches from './Matches'
+import ChatList from './ChatList'
+import ChatWindow from './ChatWindow'
 import './App.css'
 
 export default function App() {
@@ -11,7 +13,7 @@ export default function App() {
   const [loading, setLoading] = useState(true)
   const [userProfile, setUserProfile] = useState(null)
   const [view, setView] = useState("swipe")
-
+const [selectedMatch, setSelectedMatch] = useState(null)
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
@@ -39,8 +41,12 @@ export default function App() {
     <div>
       <div style={{textAlign: 'center', padding: '1rem'}}>
         <button onClick={() => setView('swipe')} style={{marginRight: '10px', padding: '8px 15px'}}>Swipe</button>
-        <button onClick={() => setView('matches')} style={{padding: '8px 15px'}}>Mis Matches</button>
+        <button onClick={() => setView('matches')} style={{marginRight: '10px', padding: '8px 15px'}}>Mis Matches</button>
+        <button onClick={() => setView('chat')} style={{padding: '8px 15px'}}>Chat</button>
       </div>
-      {view === 'swipe' ? <Swipe /> : <Matches session={session} />}
+      {view === 'swipe' && <Swipe />}
+      {view === 'matches' && <Matches session={session} />}
+      {view === 'chat' && !selectedMatch && <ChatList session={session} onSelectMatch={(match) => { setSelectedMatch(match); setView('chat-window'); }} />}
+      {view === 'chat-window' && selectedMatch && <ChatWindow session={session} selectedMatch={selectedMatch} onBack={() => { setSelectedMatch(null); setView('chat'); }} />}
     </div>
-  )}
+  )
