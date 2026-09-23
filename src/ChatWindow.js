@@ -5,28 +5,20 @@ export default function ChatWindow({ session, selectedMatch, onBack }) {
   const [messages, setMessages] = useState([])
   const [text, setText] = useState('')
   const [loading, setLoading] = useState(true)
-  const [matchId] = useState(`${session.user.id}-${selectedMatch.id}`)
+  const matchId = `${session.user.id}-${selectedMatch.id}`
 
   useEffect(() => {
+    const fetchMessages = async () => {
+      const { data } = await supabase
+        .from('messages')
+        .select('*')
+        .eq('match_id', matchId)
+        .order('created_at', { ascending: true })
+      setMessages(data || [])
+      setLoading(false)
+    }
     fetchMessages()
-    const subscription = supabase
-      .channel(`messages:${matchId}`)
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, (payload) => {
-        setMessages(prev => [...prev, payload.new])
-      })
-      .subscribe()
-    return () => subscription.unsubscribe()
   }, [matchId])
-
-  const fetchMessages = async () => {
-    const { data } = await supabase
-      .from('messages')
-      .select('*')
-      .eq('match_id', matchId)
-      .order('created_at', { ascending: true })
-    setMessages(data || [])
-    setLoading(false)
-  }
 
   const sendMessage = async () => {
     if (!text.trim()) return
@@ -42,12 +34,12 @@ export default function ChatWindow({ session, selectedMatch, onBack }) {
 
   return (
     <div style={{padding: '2rem', maxWidth: '600px', margin: '0 auto'}}>
-      <button onClick={onBack} style={{marginBottom: '1rem', padding: '8px 15px'}}>← Volver</button>
+      <button onClick={onBack} style={{marginBottom: '1rem', padding: '8px 15px'}}>Volver</button>
       <h2>{selectedMatch.full_name}</h2>
       <div style={{background: '#f0f0f0', padding: '1rem', borderRadius: '8px', height: '400px', overflowY: 'auto', marginBottom: '1rem'}}>
         {messages.map((msg) => (
           <div key={msg.id} style={{marginBottom: '1rem', textAlign: msg.sender_id === session.user.id ? 'right' : 'left'}}>
-            <div style={{background: msg.sender_id === session.user.id ? '#007AFF' : '#E5E5EA', color: msg.sender_id === session.user.id ? 'white' : 'black', padding: '0.5rem 1rem', borderRadius: '8px', display: 'iine-block', maxWidth: '80%'}}>
+            <div style={{background: msg.sender_id === session.user.id ? '#007AFF' : '#E5E5EA', color: msg.sender_id === session.user.id ? 'white' : 'black', padding: '0.5rem 1rem', borderRadius: '8px', display: 'inline-block', maxWidth: '80%'}}>
               {msg.text}
             </div>
           </div>
