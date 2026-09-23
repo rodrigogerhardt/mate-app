@@ -36,7 +36,7 @@ export default function ChatList({ session, onSelectMatch }) {
     <div style={{padding: '2rem'}}>
       <h1>Chats 💬</h1>
       {matches.map((user) => (
-        <div key={user.id} onClick={() => onlectMatch(user)} style={{background: 'white', padding: '1rem', margin: '1rem 0', borderRadius: '8px', cursor: 'pointer'}}>
+        <div key={user.id} onClick={() => onSelectMatch(user)} style={{background: 'white', padding: '1rem', margin: '1rem 0', borderRadius: '8px', cursor: 'pointer'}}>
           <h3>{user.full_name}</h3>
           <p>📍 {user.city}</p>
         </div>
