@@ -7,27 +7,39 @@ export default function Matches({ session }) {
 
   useEffect(() => {
     const fetchMatches = async () => {
-      const { data } = await supabase
+      const { data: matchIds } = await supabase
         .from('matches')
-        .select('matched_user_id, users!matches_matched_user_id_fkey(full_name, city, how_they_drink)')
+        .select('matched_user_id')
         .eq('user_id', session.user.id)
-      setMatches(data || [])
+      
+      if (!matchIds || matchIds.length === 0) {
+        setLoading(false)
+        return
+      }
+
+      const userIds = matchIds.map(m => m.matched_user_id)
+      const { data: users } = await supabase
+        .from('users')
+        .select('*')
+        .in('id', userIds)
+      
+      setMatches(users || [])
       setLoading(false)
     }
     fetchMatches()
   }, [session.user.id])
 
   if (loading) return <div style={{padding: '2rem'}}>Cargando matches...</div>
-  if (!matches.length) return <div style={{padding: '2rem'}}>Sin matches aún</div>
+  if (!matches.length) return <div style={{padding: '2rem'}}>Sin matches aún</dv>
 
   return (
     <div style={{padding: '2rem'}}>
       <h1>Tus matches 🎉</h1>
-      {matches.map((match) => (
-        <div key={match.matched_user_id} style={{background: 'white', padding: '1rem', margin: '1rem 0', borderRadius: '8px'}}>
-          <h3>{match.rs.full_name}</h3>
-          <p>📍 {match.users.city}</p>
-          <p>Mate: {match.users.how_they_drink}</p>
+      {matches.map((user) => (
+        <div key={user.id} style={{background: 'white', padding: '1rem', margin: '1rem 0', borderRadius: '8px'}}>
+          <h3>{user.full_name}</h3>
+          <p>📍 {user.city}</p>
+          <p>Mate: {user.how_they_drink}</p>
         </div>
       ))}
     </div>
