@@ -30,7 +30,7 @@ export default function Matches({ session }) {
   }, [session.user.id])
 
   if (loading) return <div style={{padding: '2rem'}}>Cargando matches...</div>
-  if (!matches.length) return <div style={{padding: '2rem'}}>Sin matches aún</dv>
+  if (!matches.length) return <div style={{padding: '2rem'}}>Sin matches aún</div>
 
   return (
     <div style={{padding: '2rem'}}>
