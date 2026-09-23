@@ -5,14 +5,14 @@ export default function ChatWindow({ session, selectedMatch, onBack }) {
   const [messages, setMessages] = useState([])
   const [text, setText] = useState('')
   const [loading, setLoading] = useState(true)
-  const matchId = `${session.user.id}-${selectedMatch.id}`
+  const receiverId = selectedMatch.id
 
   useEffect(() => {
     const fetchMessages = async () => {
       const { data } = await supabase
         .from('messages')
         .select('*')
-        .eq('match_id', matchId)
+        .eq('receiver_id', receiverId)
         .order('created_at', { ascending: true })
       setMessages(data || [])
       setLoading(false)
@@ -23,8 +23,8 @@ export default function ChatWindow({ session, selectedMatch, onBack }) {
   const sendMessage = async () => {
     if (!text.trim()) return
     await supabase.from('messages').insert({
-      match_id: matchId,
       sender_id: session.user.id,
+      receiver_id: receiverId,
       text: text
     })
     setText('')
