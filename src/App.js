@@ -50,3 +50,4 @@ const [selectedMatch, setSelectedMatch] = useState(null)
       {view === 'chat-window' && selectedMatch && <ChatWindow session={session} selectedMatch={selectedMatch} onBack={() => { setSelectedMatch(null); setView('chat'); }} />}
     </div>
   )
+}
