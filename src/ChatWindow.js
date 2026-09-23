@@ -18,7 +18,7 @@ export default function ChatWindow({ session, selectedMatch, onBack }) {
       setLoading(false)
     }
     fetchMessages()
-  }, [matchId])
+  }, [receiverId])
 
   const sendMessage = async () => {
     if (!text.trim()) return
