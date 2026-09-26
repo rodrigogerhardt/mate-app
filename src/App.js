@@ -12,8 +12,9 @@ export default function App() {
   const [session, setSession] = useState(null)
   const [loading, setLoading] = useState(true)
   const [userProfile, setUserProfile] = useState(null)
-  const [view, setView] = useState("swipe")
-const [selectedMatch, setSelectedMatch] = useState(null)
+  const [view, setView] = useState('swipe')
+  const [selectedMatch, setSelectedMatch] = useState(null)
+
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
@@ -34,26 +35,26 @@ const [selectedMatch, setSelectedMatch] = useState(null)
     setUserProfile(data)
   }
 
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
+  }
+
   if (loading) return <div>Cargando...</div>
   if (!session) return <Auth />
   if (!userProfile?.full_name) return <Profile session={session} onProfileComplete={() => fetchUserProfile(session.user.id)} />
+  
   return (
     <div>
       <div style={{textAlign: 'center', padding: '1rem'}}>
         <button onClick={() => setView('swipe')} style={{marginRight: '10px', padding: '8px 15px'}}>Swipe</button>
         <button onClick={() => setView('matches')} style={{marginRight: '10px', padding: '8px 15px'}}>Mis Matches</button>
-        <button onClick={() => setView('chat')} style={{padding: '8px 15px'}}>Chat</button>
-<button onClick={handleLogout} style={{marginLeft: '10px', padding: '8px 15px', background: '#ff4444', color: 'white'}}>Logout</button>
+        <button onClick={() => setView('chat')} style={{marginRight: '10px', padding: '8px 15px'}}>Chat</button>
+        <button onClick={handleLogout} style={{marginLeft: '10px', padding: '8px 15px', background: '#ff4444', color: 'white'}}>Logout</button>
       </div>
       {view === 'swipe' && <Swipe />}
       {view === 'matches' && <Matches session={session} />}
-      {view === 'chat' && !selectedMatch && <ChatList session={session} onSelectMatch={(match) => { setSelectedMatch(match); setView('chat-window'); }} />}
-      {view === 'chat-window' && selectedMatch && <ChatWindow session={session} selectedMatch={selectedMatch} onBack={() => { setSelectedMatch(null); setView('chat'); }} />}
+      {view === 'chat' && !selectedMatch && <ChatList session={session} onSelectMatch={(match) => { setSelectedMatch(match); setView('chat-window') }} />}
+      {view === 'chat-window' && selectedMatch && <ChatWindow session={session} selectedMatch={selectedMatch} onBack={() => { setSelectedMatch(null); setView('chat') }} />}
     </div>
-const handleLogout = async () => {
-    await supabase.auth.signOut()
-    setSession(null)
-    setUserProfile(null)
-  }
   )
 }
