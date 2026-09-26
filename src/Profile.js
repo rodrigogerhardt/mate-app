@@ -7,7 +7,6 @@ export default function Profile({ session, onProfileComplete }) {
   const [city, setCity] = useState('')
   const [howTheyDrink, setHowTheyDrink] = useState('tereré')
   const [mood, setMood] = useState([])
-const [avatar, setAvatar] = useState(null)
 const [avatarUrl, setAvatarUrl] = useState('')
 const [uploading, setUploading] = useState(false)
   
@@ -24,7 +23,7 @@ const handleAvatarUpload = async (e) => {
     if (!file) return
     setUploading(true)
     const fileName = `${session.user.id}/${Date.now()}`
-    const { data, error } = await supabase.storage.from('avatars').upload(fileName, file)
+    const { error } = await supabase.storage.from('avatars').upload(fileName, file)
     if (error) {
       setError(error.message)
       setUploading(false)
