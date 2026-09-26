@@ -22,16 +22,16 @@ export default function ChatWindow({ session, selectedMatch, onBack }) {
 
   const sendMessage = async () => {
     if (!text.trim()) return
+    const messageText = text
     await supabase.from('messages').insert({
       sender_id: session.user.id,
       receiver_id: receiverId,
-      text: text
+      text: messageText
     })
+    const newMsg = { id: Date.now(), sender_id: session.user.id, receiver_id: receiverId, text: messageText, created_at: new Date() }
+    setMessages([...messages, newMsg])
     setText('')
-const newMsg = { id: Date.now(), sender_id: session.user.id, receiver_id: receiverId, text: text, created_at: new Date() }
-setMessages([...messages, newMsg])
   }
-
   if (loading) return <div style={{padding: '2rem'}}>Cargando chat...</div>
 
   return (
