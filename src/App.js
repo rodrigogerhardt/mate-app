@@ -43,11 +43,17 @@ const [selectedMatch, setSelectedMatch] = useState(null)
         <button onClick={() => setView('swipe')} style={{marginRight: '10px', padding: '8px 15px'}}>Swipe</button>
         <button onClick={() => setView('matches')} style={{marginRight: '10px', padding: '8px 15px'}}>Mis Matches</button>
         <button onClick={() => setView('chat')} style={{padding: '8px 15px'}}>Chat</button>
+<button onClick={handleLogout} style={{marginLeft: '10px', padding: '8px 15px', background: '#ff4444', color: 'white'}}>Logout</button>
       </div>
       {view === 'swipe' && <Swipe />}
       {view === 'matches' && <Matches session={session} />}
       {view === 'chat' && !selectedMatch && <ChatList session={session} onSelectMatch={(match) => { setSelectedMatch(match); setView('chat-window'); }} />}
       {view === 'chat-window' && selectedMatch && <ChatWindow session={session} selectedMatch={selectedMatch} onBack={() => { setSelectedMatch(null); setView('chat'); }} />}
     </div>
+const handleLogout = async () => {
+    await supabase.auth.signOut()
+    setSession(null)
+    setUserProfile(null)
+  }
   )
 }

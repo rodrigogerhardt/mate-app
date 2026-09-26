@@ -7,6 +7,9 @@ export default function Profile({ session, onProfileComplete }) {
   const [city, setCity] = useState('')
   const [howTheyDrink, setHowTheyDrink] = useState('tereré')
   const [mood, setMood] = useState([])
+const [avatar, setAvatar] = useState(null)
+const [avatarUrl, setAvatarUrl] = useState('')
+const [uploading, setUploading] = useState(false)
   
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -16,7 +19,22 @@ export default function Profile({ session, onProfileComplete }) {
       prev.includes(value) ? prev.filter(m => m !== value) : [...prev, value]
     )
   }
-
+const handleAvatarUpload = async (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    setUploading(true)
+    const fileName = `${session.user.id}/${Date.now()}`
+    const { data, error } = await supabase.storage.from('avatars').upload(fileName, file)
+    if (error) {
+      setError(error.message)
+      setUploading(false)
+      return
+    }
+    const { data: { publicUrl } } = supabase.storage.from('avatars').getPublicUrl(fileName)
+    setAvatarUrl(publicUrl)
+    setAvatar(file)
+    setUploading(false)
+  }
   const handleSave = async () => {
     setLoading(true)
     setError(null)
@@ -31,6 +49,7 @@ export default function Profile({ session, onProfileComplete }) {
           city: city,
           how_they_drink: howTheyDrink,
           mood: mood.join(','),
+          avatar_url: avatarUrl,
         })
       
       if (error) throw error
@@ -59,6 +78,14 @@ export default function Profile({ session, onProfileComplete }) {
         value={city}
         onChange={(e) => setCity(e.target.value)}
       />
+
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleAvatarUpload}
+        disabled={uploading}
+      />
+      {avatarUrl && <img src={avatarUrl} alt="Avatar" style={{width: "100px", height: "100px", borderRadius: "50%", marginTop: "1rem"}} />}
 
       <select value={howTheyDrink} onChange={(e) => setHowTheyDrink(e.target.value)}>
         <option value="tereré">Tereré</option>
