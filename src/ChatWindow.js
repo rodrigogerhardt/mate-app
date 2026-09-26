@@ -28,6 +28,8 @@ export default function ChatWindow({ session, selectedMatch, onBack }) {
       text: text
     })
     setText('')
+const newMsg = { id: Date.now(), sender_id: session.user.id, receiver_id: receiverId, text: text, created_at: new Date() }
+setMessages([...messages, newMsg])
   }
 
   if (loading) return <div style={{padding: '2rem'}}>Cargando chat...</div>
