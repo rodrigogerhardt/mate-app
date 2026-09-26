@@ -30,6 +30,7 @@ const handleAvatarUpload = async (e) => {
       return
     }
     const { data: { publicUrl } } = supabase.storage.from('avatars').getPublicUrl(fileName)
+      console.log("Public URL:", publicUrl)
     setAvatarUrl(publicUrl)
     setUploading(false)
   }
