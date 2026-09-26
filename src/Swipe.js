@@ -28,6 +28,12 @@ export default function Swipe() {
   return (
     <div style={{padding: '3rem', textAlign: 'center'}}>
       <div style={{background: 'white', padding: '2rem', borderRadius: '10px', maxWidth: '400px', margin: '0 auto'}}>
+        {profile.avatar_url ? (
+          <img src={profile.avatar_url} alt={profile.full_name} style={{width: '120px', height: '120px', borderRadius: '50%', objectFit: 'cover'}} />
+        ) : (
+          <div style={{width: '120px', height: '120px', borderRadius: '50%', background: '#ddd', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '48px'}}>😊</div>
+        )}
+        <div style={{marginTop: '1rem'}} />
         <h2>{profile.full_name || 'Anónimo'}</h2>
         <p>📍 {profile.city || 'Desconocida'}</p>
         <p>Mate: {profile.how_they_drink || '?'}</p>
