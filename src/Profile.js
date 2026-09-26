@@ -34,6 +34,10 @@ const handleAvatarUpload = async (e) => {
     setUploading(false)
   }
   const handleSave = async () => {
+if (!fullName || !city || !avatarUrl) {
+      setError('Completá todos los campos incluyendo foto')
+      return
+    }
     setLoading(true)
     setError(null)
 
