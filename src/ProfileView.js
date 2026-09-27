@@ -24,7 +24,7 @@ export default function ProfileView({ session, onBack }) {
       setCity(data.city || '')
       setHowTheyDrink(data.how_they_drink || 'tereré')
       setMood(data.mood ? data.mood.split(',') : [])
-      sevatarUrl(data.avatar_url || '')
+      setAvatarUrl(data.avatar_url || '')
     }
     setLoading(false)
   }
