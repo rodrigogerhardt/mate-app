@@ -23,13 +23,13 @@ const handleAvatarUpload = async (e) => {
     if (!file) return
     setUploading(true)
     const fileName = `${session.user.id}/${Date.now()}`
-    const { error } = await supabase.storage.from('avatars').upload(fileName, file)
+    const { error } = await supabase.storage.from('Avatars').upload(fileName, file)
     if (error) {
       setError(error.message)
       setUploading(false)
       return
     }
-    const { data: { publicUrl } } = supabase.storage.from('avatars').getPublicUrl(fileName)
+    const { data: { publicUrl } } = supabase.storage.from('Avatars').getPublicUrl(fileName)
       console.log("Public URL:", publicUrl)
     setAvatarUrl(publicUrl)
     setUploading(false)
