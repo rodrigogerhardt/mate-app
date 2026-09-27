@@ -6,6 +6,7 @@ import Swipe from './Swipe'
 import Matches from './Matches'
 import ChatList from './ChatList'
 import ChatWindow from './ChatWindow'
+import ProfileView from './ProfileView'
 import './App.css'
 
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
   const [userProfile, setUserProfile] = useState(null)
   const [view, setView] = useState('swipe')
   const [selectedMatch, setSelectedMatch] = useState(null)
+const [viewingProfile, setViewingProfile] = useState(false)
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -55,6 +57,7 @@ export default function App() {
       {view === 'matches' && <Matches session={session} />}
       {view === 'chat' && !selectedMatch && <ChatList session={session} onSelectMatch={(match) => { setSelectedMatch(match); setView('chat-window') }} />}
       {view === 'chat-window' && selectedMatch && <ChatWindow session={session} selectedMatch={selectedMatch} onBack={() => { setSelectedMatch(null); setView('chat') }} />}
+{viewingProfile && <ProfileView session={session} onBack={() => setViewingProfile(false)} />}
     </div>
   )
 }
