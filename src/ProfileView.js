@@ -92,7 +92,7 @@ export default function ProfileView({ session, onBack }) {
               </label>
             ))}
           </div>
-          <button onClick={handleSave} disabled={saving} style={{padding: '10px 20px', marginRight10px', cursor: 'pointer', background: '#007AFF', color: 'white', borderRadius: '8px', border: 'none'}}>
+          <button onClick={handleSave} disabled={saving} style={{padding: '10px 20px', marginRight: '10px', cursor: 'pointer', background: '#007AFF', color: 'white', borderRadius: '8px', border: 'none'}}>
             {saving ? 'Guardando...' : 'Guardar'}
           </button>
           <button onClick={() => setEditing(false)} style={{padding: '10px 20px', cursor: 'pointer'}}>Cancelar</button>
