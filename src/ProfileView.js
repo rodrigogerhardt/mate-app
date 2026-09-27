@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react'
 import { supabase } from './supabaseClient'
 
 export default function ProfileView({ session, onBack }) {
-  const [profile, setProfile] = useState(null)
-  const [editing, setEditing] = useState(false)
   const [fullName, setFullName] = useState('')
   const [city, setCity] = useState('')
   const [howTheyDrink, setHowTheyDrink] = useState('tereré')
@@ -11,23 +9,22 @@ export default function ProfileView({ session, onBack }) {
   const [avatarUrl, setAvatarUrl] = useState('')
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [editing, setEditing] = useState(false)
 
   useEffect(() => {
-    fetchProfile()
-  }, [])
-
-  const fetchProfile = async () => {
-    const { data } = await supabase.from('users').select('*').eq('id', session.user.id).single()
-    if (data) {
-      setProfile(data)
-      setFullName(data.full_name || '')
-      setCity(data.city || '')
-      setHowTheyDrink(data.how_they_drink || 'tereré')
-      setMood(data.mood ? data.mood.split(',') : [])
-      setAvatarUrl(data.avatar_url || '')
+    const fetchProfile = async () => {
+      const { data } = await supabase.from('users').select('*').eq('id', session.user.id).single()
+      if (data) {
+        setFullName(data.full_name || '')
+        setCity(data.city || '')
+        setHowTheyDrink(data.how_they_drink || 'tereré')
+        setMood(data.mood ? data.mood.split(',') : [])
+        setAvatarUrl(data.avatar_url || '')
+      }
+      setLoading(false)
     }
-    setLoading(false)
-  }
+    fetchPfile()
+  }, [session.user.id])
 
   const handleMoodToggle = (value) => {
     setMood(prev =>
@@ -49,7 +46,6 @@ export default function ProfileView({ session, onBack }) {
     
     if (!error) {
       setEditing(false)
-      fetchProfile()
     }
     setSaving(false)
   }
@@ -63,7 +59,7 @@ export default function ProfileView({ session, onBack }) {
       {!editing && (
         <div>
           <h1>Mi Perfil</h1>
-          {avatarUrl && <img src={avatarUrl} alt="Avatar" style={{width: '150px', height: '0px', borderRadius: '50%', objectFit: 'cover', marginBottom: '1rem'}} />}
+          {avatarUrl && <img src={avatarUrl} alt="Avatar" style={{width: '150px', height: '150px', borderRadius: '50%', objectFit: 'cover', margiottom: '1rem'}} />}
           <p><strong>Nombre:</strong> {fullName}</p>
           <p><strong>Ciudad:</strong> {city}</p>
           <p><strong>Mate:</strong> {howTheyDrink}</p>
@@ -92,7 +88,7 @@ export default function ProfileView({ session, onBack }) {
               </label>
             ))}
           </div>
-          <button onClick={handleSave} disabled={saving} style={{padding: '10px 20px', marginRight: '10px', cursor: 'pointer', background: '#007AFF', color: 'white', borderRadius: '8px', border: 'none'}}>
+          <button onClick={handleSave} disabled={saving} style={{padding: '10px 20px', marginRight: '10px', cursor: 'pointer', background: '#007AFF', co: 'white', borderRadius: '8px', border: 'none'}}>
             {saving ? 'Guardando...' : 'Guardar'}
           </button>
           <button onClick={() => setEditing(false)} style={{padding: '10px 20px', cursor: 'pointer'}}>Cancelar</button>
