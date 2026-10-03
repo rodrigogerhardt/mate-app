@@ -42,7 +42,7 @@ export default function ChatWindow({ session, selectedMatch, onBack }) {
       <div style={{background: '#f0f0f0', padding: '1rem', borderRadius: '12px', height: '400px', overflowY: 'auto', marginBottom: '1rem', boxShadow: '0 2px 8px rgba(0,0,0,0.1)'}}>
         {messages.map((msg) => (
           <div key={msg.id} style={{marginBottom: '1rem', textAlign: msg.sender_id === session.user.id ? 'right' : 'left'}}>
-            iv style={{background: msg.sender_id === session.user.id ? '#2D5016' : '#white', color: msg.sender_id === session.user.id ? 'white' : '#333', padding: '0.75rem 1rem', borderRadius: '12px', display: 'inline-block', maxWidth: '80%', wordWrap: 'break-word', boxShadow: '0 1px 3px rgba(0,0,0,0.1)'}}>
+            iv style={{background: msg.sender_id === session.user.id ? '#2D5016' : 'white', color: msg.sender_id === session.user.id ? 'white' : '#333', padding: '0.75rem 1rem', borderRadius: '12px', display: 'inline-block', maxWidth: '80%', wordWrap: 'break-word', boxShadow: '0 1px 3px rgba(0,0,0,0.1)'}}>
               {msg.text}
             </div>
           </div>
