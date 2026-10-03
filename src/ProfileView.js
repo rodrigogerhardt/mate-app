@@ -23,15 +23,14 @@ export default function ProfileView({ session, onBack }) {
       }
       setLoading(false)
     }
-    fetchProfile()
+    fetchPfile()
   }, [session.user.id])
 
   const handleMoodToggle = (value) => {
-    setMood(prev =>
-      prev.includes(value) ? prev.filter(m => m !== value) : [...prev, value]
-    )
+    setMood(prev => prev.includes(value) ? prev.filter(m => m !== value) : [...prev, value])
   }
-const handleAvatarUpload = async (e) => {
+
+  const handleAvatarUpload = async (e) => {
     const file = e.target.files[0]
     if (!file) return
     const fileName = `${session.user.id}/${Date.now()}`
@@ -41,19 +40,16 @@ const handleAvatarUpload = async (e) => {
       setAvatarUrl(publicUrl)
     }
   }
+
   const handleSave = async () => {
     setSaving(true)
-    await supabase
-      .from('users')
-      .update({
-        full_name: fullName,
-        city: city,
-        how_they_drink: howTheyDrink,
-        mood: mood.join(',')
-        avatar_url: avatarUrl,
-      })
-      .eq('id', session.user.id)
-    
+    await supabase.from('users').update({
+      full_name: fullName,
+      city: city,
+      how_they_drink: howTheyDrink,
+      mood: mood.join(','),
+      avatar_url: avatarUrl
+    }).eq('id', session.user.id)
     setEditing(false)
     setSaving(false)
   }
@@ -69,7 +65,7 @@ const handleAvatarUpload = async (e) => {
           <h1 style={{color: '#2D5016', marginBottom: '1.5rem', textAlign: 'center'}}>Mi Perfil</h1>
           {avatarUrl && <img src={avatarUrl} alt="Avatar" style={{width: '150px', height: '150px', borderRadius: '50%', objectFit: 'cover', marginBottom: '1rem', display: 'block', margin: '0 auto 1rem'}} />}
           <p style={{marginBottom: '1rem', color: '#333'}}><strong style={{color: '#2D5016'}}>Nombre:</strong> {fullName}</p>
-          <p style={{marginBottom: '1rem', color: '#333'}}><strong style={{color: '#2D5016'}}>Ciudad:</strong> {city}</p>
+          <p style={{marginBottom: '1rem', color: '#333'}}><strong style={{color: '#2D5016'}}>Ciudad:</strong> {city}<>
           <p style={{marginBottom: '1rem', color: '#333'}}><strong style={{color: '#2D5016'}}>Mate:</strong> {howTheyDrink}</p>
           <p style={{marginBottom: '1.5rem', color: '#333'}}><strong style={{color: '#2D5016'}}>Vibe:</strong> {mood.join(', ')}</p>
           <button onClick={() => setEditing(true)} style={{width: '100%', padding: '12px', background: '#2D5016', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold'}}>Editar Perfil</button>
@@ -88,9 +84,9 @@ const handleAvatarUpload = async (e) => {
             <option value="dulce">Dulce</option>
             <option value="con yuyos">Con yuyos</option>
           </select>
-<input type="file" accept="image/*" placeholder="Sube tu foto" style={{width: '100%', padding: '12px', marginBottom: '1rem', border: '2px solid #6DB3D0', borderRadius: '8px'}} onChange={(e) => handleAvatarUpload(e)} />
+          <input type="file" accept="image/*" onChange={(e) => handleAvatarUpload(e)} style={{width: '100%', padding: '12px', marginBottom: '1rem', border: '2px solid #6DB3D0', borderRadius: '8px'}} />
           <div style={{marginBottom: '1.5rem'}}>
-            <p style={{color: '#2D5016', fontWeight: 'bold', marginBottom: '1rem'}}>¿Qué vibe buscas?</p>
+            <p style={{color: '#2D5016', fontWeight: 'bold', marginBottom: '1rem'}}>¿Qué vbuscas?</p>
             {['charla_profunda', 'risas', 'silencio', 'debate'].map(v => (
               <label key={v} style={{display: 'block', marginBottom: '0.75rem', color: '#333'}}>
                 <input type="checkbox" checked={mood.includes(v)} onChange={() => handleMoodToggle(v)} style={{marginRight: '8px'}} />
@@ -101,7 +97,7 @@ const handleAvatarUpload = async (e) => {
           <button onClick={handleSave} disabled={saving} style={{width: '100%', padding: '12px', marginBottom: '1rem', background: '#2D5016', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold'}}>
             {saving ? 'Guardando...' : 'Guardar'}
           </button>
-          <button onClick={() => setEditing(false)} style={{width: '100%', padding: '12px', background: '#ddd', color: '#333', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold'}}>Cancelar</button>
+          <button onClick={() => setEditing(false)} style={{width: '100%', padding: '12px', background: '#ddd', color: '#333', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold'}>Cancelar</button>
         </div>
       )}
     </div>
