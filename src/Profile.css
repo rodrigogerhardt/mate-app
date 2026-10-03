@@ -1,65 +1,77 @@
 .profile-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #6DB3D0 0%, #F5F5F5 100%);
   padding: 2rem;
-  font-family: Arial, sans-serif;
 }
 
-.profile-container h1 {
-  color: white;
-  margin-bottom: 2rem;
-}
-
-.profile-container input,
-.profile-container select {
-  width: 300px;
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 1rem;
-}
-
-.profile-container p {
-  color: white;
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-
-.profile-container label {
-  display: block;
-  color: white;
-  margin-bottom: 10px;
-  font-size: 0.95rem;
-}
-
-.profile-container input[type="checkbox"] {
-  width: auto;
-  margin-right: 8px;
-}
-
-.profile-container button {
-  width: 300px;
-  padding: 12px;
+.profile-form {
   background: white;
-  color: #667eea;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: bold;
-  margin-top: 20px;
+  padding: 3rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  width: 100%;
 }
 
-.profile-container button:hover {
-  background: #f0f0f0;
+.profile-form h1 {
+  text-align: center;
+  color: #2D5016;
+  margin-bottom: 2rem;
+  font-size: 28px;
+}
+
+.profile-form input,
+.profile-form select {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #6DB3D0;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 14px;
+}
+
+.profile-form input:focus,
+.profile-form select:focus {
+  outline: none;
+  border-color: #2D5016;
+  box-shadow: 0 0 0 3px rgba(109, 179, 208, 0.1);
+}
+
+.profile-form button {
+  width: 100%;
+  padding: 12px;
+  background: #2D5016;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.profile-form button:hover {
+  background: #1f3610;
+}
+
+.profile-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.profile-form p {
+  color: #2D5016;
+  font-weight: 500;
+  margin: 1rem 0;
 }
 
 .error {
-  color: #ff6b6b;
-  margin-top: 10px;
+  color: #d32f2f;
+  margin-top: 1rem;
+  text-align: center;
 }
