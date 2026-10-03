@@ -26,20 +26,19 @@ export default function Swipe() {
   const profile = profiles[index]
   
   return (
-    <div style={{padding: '3rem', textAlign: 'center'}}>
-      <div style={{background: 'white', padding: '2rem', borderRadius: '10px', maxWidth: '400px', margin: '0 auto'}}>
+<div style={{padding: '3rem', background: 'linear-gradient(135deg, #6DB3D0 0%, #F5F5F5 100%)', minHeight: '100vh'}}>
+<div style={{background: 'white', padding: '2rem', borderRadius: '12px', maxWidth: '400px', margin: '0 auto', boxShadow: '0 4px 12px rgba(0,0,0,0.1)'}}>
         {profile.avatar_url ? (
           <img src={profile.avatar_url} alt={profile.full_name} style={{width: '120px', height: '120px', borderRadius: '50%', objectFit: 'cover'}} />
         ) : (
           <div style={{width: '120px', height: '120px', borderRadius: '50%', background: '#ddd', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '48px'}}>😊</div>
         )}
         <div style={{marginTop: '1rem'}} />
-        <h2>{profile.full_name || 'Anónimo'}</h2>
+<h2 style={{color: '#2D5016', marginBottom: '1rem'}}>{profile.full_name || 'Anónimo'}</h2>
         <p>📍 {profile.city || 'Desconocida'}</p>
         <p>Mate: {profile.how_they_drink || '?'}</p>
         <div style={{marginTop: '2rem'}}>
-          <button onClick={() => setIndex((index + 1) % profiles.length)} style={{padding: '10px 20px', margin: '5px', cursor: 'pointer'}}>❌ No</button>
-          <button onClick={() => handleMatch(profile.id)} style={{padding: '10px 20px', margin: '5px', cursor: 'pointer'}}>✅ Sí</button>
+style={{padding: '12px 20px', margin: '5px', cursor: 'pointer', background: '#2D5016', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 'bold'}}
         </div>
       </div>
     </div>
