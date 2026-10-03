@@ -41,6 +41,10 @@ const [viewingProfile, setViewingProfile] = useState(false)
     await supabase.auth.signOut()
   }
 
+      {!viewingProfile && view === "swipe" && <Swipe />}
+      {!viewingProfile && view === "chat" && !selectedMatch && <ChatList session={session} onSelectMatch={(match) => { setSelectedMatch(match); setView("chat-window") }} />}
+      {!viewingProfile && view === "chat-window" && selectedMatch && <ChatWindow session={session} selectedMatch={selectedMatch} onBack={() => {setSelectedMatch(null); setView("chat") }} />}
+      {viewingProfile && <ProfileView session={session} onBack={() => setViewingProfile(false)} />}
   if (loading) return <div>Cargando...</div>
   if (!session) return <Auth />
   if (!userProfile?.full_name) return <Profile session={session} onProfileComplete={() => fetchUserProfile(session.user.id)} />
@@ -52,12 +56,17 @@ const [viewingProfile, setViewingProfile] = useState(false)
         <button onClick={() => setView('chat')} style={{marginRight: '10px', padding: '8px 15px'}}>Chat</button>
         <button onClick={() => setViewingProfile(true)} style={{marginRight: '10px', padding: '8px 15px'}}>Mi Perfil</button>
         <button onClick={handleLogout} style={{marginLeft: '10px', padding: '8px 15px', background: '#ff4444', color: 'white'}}>Logout</button>
+      {!viewingProfile && view === "swipe" && <Swipe />}
+      {!viewingProfile && view === "chat" && !selectedMatch && <ChatList session={session} onSelectMatch={(match) => { setSelectedMatch(match); setView("chat-window") }} />}
+      {!viewingProfile && view === "chat-window" && selectedMatch && <ChatWindow session={session} selectedMatch={selectedMatch} onBack={() => {setSelectedMatch(null); setView("chat") }} />}
+      {viewingProfile && <ProfileView session={session} onBack={() => setViewingProfile(false)} />}
       </div>
       {view === 'swipe' && <Swipe />}
       {view === 'matches' && <Matches session={session} />}
-      {view === 'chat' && !selectedMatch && <ChatList session={session} onSelectMatch={(match) => { setSelectedMatch(match); setView('chat-window') }} />}
-      {view === 'chat-window' && selectedMatch && <ChatWindow session={session} selectedMatch={selectedMatch} onBack={() => { setSelectedMatch(null); setView('chat') }} />}
-{viewingProfile && <ProfileView session={session} onBack={() => setViewingProfile(false)} />}
+      {!viewingProfile && view === "swipe" && <Swipe />}
+      {!viewingProfile && view === "chat" && !selectedMatch && <ChatList session={session} onSelectMatch={(match) => { setSelectedMatch(match); setView("chat-window") }} />}
+      {!viewingProfile && view === "chat-window" && selectedMatch && <ChatWindow session={session} selectedMatch={selectedMatch} onBack={() => {setSelectedMatch(null); setView("chat") }} />}
+      {viewingProfile && <ProfileView session={session} onBack={() => setViewingProfile(false)} />}
     </div>
   )
 }
