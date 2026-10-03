@@ -51,6 +51,7 @@ const [viewingProfile, setViewingProfile] = useState(false)
         <button onClick={() => setView('swipe')} style={{marginRight: '10px', padding: '8px 15px'}}>Swipe</button>
         <button onClick={() => setView('matches')} style={{marginRight: '10px', padding: '8px 15px'}}>Mis Matches</button>
         <button onClick={() => setView('chat')} style={{marginRight: '10px', padding: '8px 15px'}}>Chat</button>
+        <button onClick={() => setViewingProfile(true)} style={{marginRight: '10px', padding: '8px 15px'}}>Mi Perfil</button>
         <button onClick={handleLogout} style={{marginLeft: '10px', padding: '8px 15px', background: '#ff4444', color: 'white'}}>Logout</button>
       </div>
       {view === 'swipe' && <Swipe />}
