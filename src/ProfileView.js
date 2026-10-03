@@ -31,7 +31,16 @@ export default function ProfileView({ session, onBack }) {
       prev.includes(value) ? prev.filter(m => m !== value) : [...prev, value]
     )
   }
-
+const handleAvatarUpload = async (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    const fileName = `${session.user.id}/${Date.now()}`
+    const { error } = await supabase.storage.from('Avatars').upload(fileName, file)
+    if (!error) {
+      const { data: { publicUrl } } = supabase.storage.from('Avatars').getPublicUrl(fileName)
+      setAvatarUrl(publicUrl)
+    }
+  }
   const handleSave = async () => {
     setSaving(true)
     await supabase
@@ -41,6 +50,7 @@ export default function ProfileView({ session, onBack }) {
         city: city,
         how_they_drink: howTheyDrink,
         mood: mood.join(',')
+        avatar_url: avatarUrl,
       })
       .eq('id', session.user.id)
     
@@ -78,6 +88,7 @@ export default function ProfileView({ session, onBack }) {
             <option value="dulce">Dulce</option>
             <option value="con yuyos">Con yuyos</option>
           </select>
+<input type="file" accept="image/*" placeholder="Sube tu foto" style={{width: '100%', padding: '12px', marginBottom: '1rem', border: '2px solid #6DB3D0', borderRadius: '8px'}} onChange={(e) => handleAvatarUpload(e)} />
           <div style={{marginBottom: '1.5rem'}}>
             <p style={{color: '#2D5016', fontWeight: 'bold', marginBottom: '1rem'}}>¿Qué vibe buscas?</p>
             {['charla_profunda', 'risas', 'silencio', 'debate'].map(v => (
