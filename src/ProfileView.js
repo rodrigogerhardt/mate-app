@@ -65,7 +65,7 @@ export default function ProfileView({ session, onBack }) {
           <h1 style={{color: '#2D5016', marginBottom: '1.5rem', textAlign: 'center'}}>Mi Perfil</h1>
           {avatarUrl && <img src={avatarUrl} alt="Avatar" style={{width: '150px', height: '150px', borderRadius: '50%', objectFit: 'cover', marginBottom: '1rem', display: 'block', margin: '0 auto 1rem'}} />}
           <p style={{marginBottom: '1rem', color: '#333'}}><strong style={{color: '#2D5016'}}>Nombre:</strong> {fullName}</p>
-          <p style={{marginBottom: '1rem', color: '#333'}}><strong style={{color: '#2D5016'}}>Ciudad:</strong> {city}<>
+          <p style={{marginBottom: '1rem', color: '#333'}}><strong style={{color: '#2D5016'}}>Ciudad:</strong> {city}</p>
           <p style={{marginBottom: '1rem', color: '#333'}}><strong style={{color: '#2D5016'}}>Mate:</strong> {howTheyDrink}</p>
           <p style={{marginBottom: '1.5rem', color: '#333'}}><strong style={{color: '#2D5016'}}>Vibe:</strong> {mood.join(', ')}</p>
           <button onClick={() => setEditing(true)} style={{width: '100%', padding: '12px', background: '#2D5016', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold'}}>Editar Perfil</button>
