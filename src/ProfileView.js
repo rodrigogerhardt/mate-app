@@ -55,7 +55,7 @@ export default function ProfileView({ session, onBack }) {
       <button onClick={onBack} style={{marginBottom: '1rem', padding: '8px 15px', background: '#2D5016', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer'}}>← Volver</button>
       
       {!editing && (
-        <div style={{background'white', padding: '2rem', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)'}}>
+        <div style={{background: 'white', padding: '2rem', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)'}}>
           <h1 style={{color: '#2D5016', marginBottom: '1.5rem', textAlign: 'center'}}>Mi Perfil</h1>
           {avatarUrl && <img src={avatarUrl} alt="Avatar" style={{width: '150px', height: '150px', borderRadius: '50%', objectFit: 'cover', marginBottom: '1rem', display: 'block', margin: '0 auto 1rem'}} />}
           <p style={{marginBottom: '1rem', color: '#333'}}><strong style={{color: '#2D5016'}}>Nombre:</strong> {fullName}</p>
