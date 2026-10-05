@@ -23,7 +23,7 @@ export default function ProfileView({ session, onBack }) {
       }
       setLoading(false)
     }
-    fetchPfile()
+    fetchProfile()
   }, [session.user.id])
 
   const handleMoodToggle = (value) => {
