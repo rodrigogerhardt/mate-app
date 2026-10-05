@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { CIUDADES, filterCiudades } from './ciudades.js'
+import { filterCiudades } from './ciudades.js'
 import { supabase } from './supabaseClient'
 import './Profile.css'
 
@@ -85,14 +85,12 @@ if (!fullName || !city || !avatarUrl) {
         value={fullName}
         onChange={(e) => setFullName(e.target.value)}
       />
-
       <input
-        type="text"
-        placeholder="¿En qué ciudad estás?"
-        value={city}
-        onChange={(e) => setCity(e.target.value)}
+        type="file"
+        accept="image/*"
+        onChange={(e) => handleAvatarUpload(e)}
+        style={{width: '100%', padding: '12px', marginBottom: '1rem', border: '2px solid #6DB3D0', borderRadius: '8px'}}
       />
-
       <div style={{position: 'relative', marginBottom: '1rem'}}>
         <input
           type="text"
