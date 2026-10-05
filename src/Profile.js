@@ -1,10 +1,12 @@
 import { useState } from 'react'
+import { CIUDADES, filterCiudades } from './ciudades.js'
 import { supabase } from './supabaseClient'
 import './Profile.css'
 
 export default function Profile({ session, onProfileComplete }) {
   const [fullName, setFullName] = useState('')
   const [city, setCity] = useState('')
+const [suggestions, setSuggestions] = useState([])
   const [howTheyDrink, setHowTheyDrink] = useState('tereré')
   const [mood, setMood] = useState([])
 const [avatarUrl, setAvatarUrl] = useState('')
@@ -91,12 +93,27 @@ if (!fullName || !city || !avatarUrl) {
         onChange={(e) => setCity(e.target.value)}
       />
 
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleAvatarUpload}
-        disabled={uploading}
-      />
+      <div style={{position: 'relative', marginBottom: '1rem'}}>
+        <input
+          type="text"
+          placeholder="¿En qué ciudad estás?"
+          value={city}
+          onChange={(e) => {
+            setCity(e.target.value)
+            setSuggestions(filterCiudades(e.target.value))
+          }}
+          style={{width: '100%', padding: '12px', border: '2px solid #6DB3D0', borderRadius: '8px'}}
+        />
+        {suggestions.length > 0 && (
+          <ul style={{position: 'absolute', top: '100%', left: 0, right: 0, background: 'white', border: '1px solid #6DB3D0', borderTop: 'none', borderRadius: '0 0 8px 8px', listStyle: 'none', margin: 0, padding: 0, zIndex: 10}}>
+            {suggestions.map(c => (
+              <li key={c} onClick={() => {setCity(c); setSuggestions([])}} style={{padding: '10px 12px', cursor: 'pointer', borderBottom: '1px solid #f0f0f0', color: '#333'}}>
+                {c}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
       {avatarUrl && <img src={avatarUrl} alt="Avatar" style={{width: "100px", height: "100px", borderRadius: "50%", marginTop: "1rem"}} />}
 
       <select value={howTheyDrink} onChange={(e) => setHowTheyDrink(e.target.value)}>
