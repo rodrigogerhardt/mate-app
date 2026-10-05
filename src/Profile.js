@@ -21,6 +21,14 @@ const [uploading, setUploading] = useState(false)
 const handleAvatarUpload = async (e) => {
     const file = e.target.files[0]
     if (!file) return
+    
+    // Validar tamaño (5MB máximo)
+    const maxSizeInBytes = 5 * 1024 * 1024
+    if (file.size > maxSizeInBytes) {
+      setError(`Foto muy grande. Máximo 5MB (la tuya es ${(file.size / (1024 * 1024)).toFixed(2)}MB)`)
+      return
+    }
+    
     setUploading(true)
     const fileName = `${session.user.id}/${Date.now()}`
     const { error } = await supabase.storage.from('Avatars').upload(fileName, file)
@@ -32,6 +40,7 @@ const handleAvatarUpload = async (e) => {
     const { data: { publicUrl } } = supabase.storage.from('Avatars').getPublicUrl(fileName)
       console.log("Public URL:", publicUrl)
     setAvatarUrl(publicUrl)
+    setError(null)
     setUploading(false)
   }
   const handleSave = async () => {
