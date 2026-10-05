@@ -85,7 +85,7 @@ export default function ProfileView({ session, onBack }) {
           <input type="file" accept="image/*" onChange={(e) => handleAvatarUpload(e)} style={{width: '100%', padding: '12px', marginBottom: '1rem', border: '2px solid #6DB3D0', borderRadius: '8px'}} />
           <p style={{color: '#2D5016', fontWeight: 'bold', marginBottom: '1rem'}}>Vibe:</p>
           {['charla_profunda', 'risas', 'silencio', 'debate'].map(v => (
-            <label key={v} style={{display: 'block', marginBottom: '0.75rem}>
+<label key={v} style={{display: 'block', marginBottom: '0.75rem'}}>
               <input type="checkbox" checked={mood.includes(v)} onChange={() => handleMoodToggle(v)} style={{marginRight: '8px'}} />
               {v === 'charla_profunda' ? 'Charla profunda' : v === 'risas' ? 'Risas' : v === 'silencio' ? 'Silencio cómodo' : 'Debate'}
             </label>
