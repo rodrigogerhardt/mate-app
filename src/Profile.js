@@ -10,6 +10,7 @@ const [suggestions, setSuggestions] = useState([])
   const [howTheyDrink, setHowTheyDrink] = useState('tereré')
   const [mood, setMood] = useState([])
 const [avatarUrl, setAvatarUrl] = useState('')
+  // eslint-disable-next-line no-unused-vars
 const [uploading, setUploading] = useState(false)
   
   const [loading, setLoading] = useState(false)
