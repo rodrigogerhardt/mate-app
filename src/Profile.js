@@ -6,12 +6,12 @@ import './Profile.css'
 export default function Profile({ session, onProfileComplete }) {
   const [fullName, setFullName] = useState('')
   const [city, setCity] = useState('')
-const [suggestions, setSuggestions] = useState([])
+  const [suggestions, setSuggestions] = useState([])
   const [howTheyDrink, setHowTheyDrink] = useState('tereré')
   const [mood, setMood] = useState([])
-const [avatarUrl, setAvatarUrl] = useState('')
+  const [avatarUrl, setAvatarUrl] = useState('')
   // eslint-disable-next-line no-unused-vars
-const [uploading, setUploading] = useState(false)
+  const [uploading, setUploading] = useState(false)
   
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -21,33 +21,31 @@ const [uploading, setUploading] = useState(false)
       prev.includes(value) ? prev.filter(m => m !== value) : [...prev, value]
     )
   }
-const handleAvatarUpload = async (e) => {
+
+  const handleAvatarUpload = async (e) => {
     const file = e.target.files[0]
     if (!file) return
     
-    // Validar tamaño (5MB máximo)
     const maxSizeInBytes = 5 * 1024 * 1024
     if (file.size > maxSizeInBytes) {
       setError(`Foto muy grande. Máximo 5MB (la tuya es ${(file.size / (1024 * 1024)).toFixed(2)}MB)`)
       return
     }
     
-    setUploading(true)
     const fileName = `${session.user.id}/${Date.now()}`
-    const { error } = await supabase.storage.from('Avatars').upload(fileName, file)
-    if (error) {
-      setError(error.message)
-      setUploading(false)
+    const { error: uploadError } = await supabase.storage.from('Avatars').upload(fileName, file)
+    if (uploadError) {
+      setError(uploadError.message)
       return
     }
     const { data: { publicUrl } } = supabase.storage.from('Avatars').getPublicUrl(fileName)
-      console.log("Public URL:", publicUrl)
+    console.log("Public URL:", publicUrl)
     setAvatarUrl(publicUrl)
     setError(null)
-    setUploading(false)
   }
+
   const handleSave = async () => {
-if (!fullName || !city || !avatarUrl) {
+    if (!fullName || !city || !avatarUrl) {
       setError('Completá todos los campos incluyendo foto')
       return
     }
@@ -62,7 +60,7 @@ if (!fullName || !city || !avatarUrl) {
           email: session.user.email,
           full_name: fullName,
           city: city,
-          how_they_drink: howTheyDrink,
+          how_they_dri: howTheyDrink,
           mood: mood.join(','),
           avatar_url: avatarUrl,
         })
@@ -86,12 +84,14 @@ if (!fullName || !city || !avatarUrl) {
         value={fullName}
         onChange={(e) => setFullName(e.target.value)}
       />
+
       <input
         type="file"
         accept="image/*"
         onChange={(e) => handleAvatarUpload(e)}
         style={{width: '100%', padding: '12px', marginBottom: '1rem', border: '2px solid #6DB3D0', borderRadius: '8px'}}
       />
+
       <div style={{position: 'relative', marginBottom: '1rem'}}>
         <input
           type="text"
@@ -99,7 +99,9 @@ if (!fullName || !city || !avatarUrl) {
           value={city}
           onChange={(e) => {
             setCity(e.target.value)
-            setSuggestions(filterCiudades(e.target.value))
+            const sugg = filterCiudades(e.target.value)
+            console.log("Sugerencias:", sugg)
+            setSuggestions(sugg)
           }}
           style={{width: '100%', padding: '12px', border: '2px solid #6DB3D0', borderRadius: '8px'}}
         />
@@ -113,6 +115,7 @@ if (!fullName || !city || !avatarUrl) {
           </ul>
         )}
       </div>
+
       {avatarUrl && <img src={avatarUrl} alt="Avatar" style={{width: "100px", height: "100px", borderRadius: "50%", marginTop: "1rem"}} />}
 
       <select value={howTheyDrink} onChange={(e) => setHowTheyDrink(e.target.value)}>
@@ -152,7 +155,7 @@ if (!fullName || !city || !avatarUrl) {
         <input
           type="checkbox"
           checked={mood.includes('debate')}
-          onChange={() => handleMoodToggle('debate')}
+          oge={() => handleMoodToggle('debate')}
         />
         Debate
       </label>
