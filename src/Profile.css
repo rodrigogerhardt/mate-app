@@ -75,3 +75,14 @@
   margin-top: 1rem;
   text-align: center;
 }
+.profile-form label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  cursor: pointer;
+  accent-color: #2D5016;
+}
+
+.profile-form label input[type="checkbox"]:hover {
+  transform: scale(1.1);
+}
