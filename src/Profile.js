@@ -74,10 +74,10 @@ export default function Profile({ session, onProfileComplete }) {
     }
   }
 
-  return (
+return (
     <div className="profile-container">
-      <h1>Completá tu perfil</h1>
-      
+      <div className="profile-form">
+        <h1>Completá tu perfil</h1>
       <input
         type="text"
         placeholder="Nombre completo"
@@ -165,6 +165,7 @@ export default function Profile({ session, onProfileComplete }) {
       </button>
 
       {error && <p className="error">{error}</p>}
+      </div>
     </div>
   )
 }
