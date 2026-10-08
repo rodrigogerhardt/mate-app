@@ -30,32 +30,36 @@ export default function Auth() {
     }
   }
 
-  return (
+return (
     <div className="auth-container">
-      <h1>Mate App</h1>
-      <form onSubmit={handleAuth}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit" disabled={loading}>
-          {loading ? 'Cargando...' : isSignUp ? 'Registrarse' : 'Entrar'}
-        </button>
-      </form>
-      <button onClick={() => setIsSignUp(!isSignUp)} className="toggle">
-        {isSignUp ? 'Ya tengo cuenta' : 'Crear cuenta'}
-      </button>
-      {error && <p className="error">{error}</p>}
+      <div className="auth-form">
+        <h1>Mate App</h1>
+        <form onSubmit={handleAuth}>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button type="submit" disabled={loading}>
+            {loading ? 'Cargando...' : isSignUp ? 'Registrarse' : 'Entrar'}
+          </button>
+        </form>
+        <div className="auth-toggle">
+          <button onClick={() => setIsSignUp(!isSignUp)}>
+            {isSignUp ? 'Ya tengo cuenta' : 'Crear cuenta'}
+          </button>
+        </div>
+        {error && <p className="error">{error}</p>}
+      </div>
     </div>
   )
 }
