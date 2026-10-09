@@ -7,7 +7,12 @@ export default function ProfileView({ session, onBack }) {
   const [howTheyDrink, setHowTheyDrink] = useState('tereré')
   const [mood, setMood] = useState([])
   const [avatarUrl, setAvatarUrl] = useState('')
-  const [loading, setLoading] = useState(true)
+  const [age, setAge] = useState('')
+  const [bio, setBio] = useState('')
+  const [languages, setLanguages] = useState([])
+  const [photos, setPhotos] = useState([])
+  const [lookingForMateToday, setLookingForMateToday] = useState(false)  
+const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [editing, setEditing] = useState(false)
 
@@ -19,7 +24,12 @@ export default function ProfileView({ session, onBack }) {
         setCity(data.city || '')
         setHowTheyDrink(data.how_they_drink || 'tereré')
         setMood(data.mood ? data.mood.split(',') : [])
-        setAvatarUrl(data.avatar_url || '')
+        setAge(data.age || '')
+        setBio(data.bio || '')
+        setLanguages(data.languages ? data.languages.split(',') : [])
+        setPhotos(data.photos || [])
+        setLookingForMateToday(data.looking_for_mate_today || false)        
+setAvatarUrl(data.avatar_url || '')
       }
       setLoading(false)
     }
@@ -48,8 +58,13 @@ export default function ProfileView({ session, onBack }) {
       city: city,
       how_they_drink: howTheyDrink,
       mood: mood.join(','),
-      avatar_url: avatarUrl
-    }).eq('id', session.user.id)
+      avatar_url: avatarUrl,
+          age: parseInt(age),
+          bio: bio,
+          languages: languages.join(','),
+          photos: photos,
+          looking_for_mate_today: lookingForMateToday,    
+}).eq('id', session.user.id)
     setEditing(false)
     setSaving(false)
   }
