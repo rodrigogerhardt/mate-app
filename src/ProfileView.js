@@ -98,6 +98,11 @@ setAvatarUrl(data.avatar_url || '')
             <option value="con yuyos">Con yuyos</option>
           </select>
           <input type="file" accept="image/*" onChange={(e) => handleAvatarUpload(e)} style={{width: '100%', padding: '12px', marginBottom: '1rem', border: '2px solid #6DB3D0', borderRadius: '8px'}} />
+          <input type="number" placeholder="Edad" value={age} onChange={(e) => setAge(e.target.value)} min="18" max="120" style={{width: '100%', padding: '12px', marginBottom: '1rem', border: '2px solid #6DB3D0', borderRadius: '8px'}} />
+          <textarea placeholder="Bio" value={bio} onChange={(e) => setBio(e.target.value)} style={{width: '100%', padding: '12px', marginBottom: '1rem', border: '2px solid #6DB3D0', borderRadius: '8px', minHeight: '80px'}} maxLength="300" />
+          <p style={{color: '#2D5016', fontWeight: 'bold', marginBottom: '0.5rem'}}>Idiomas:</p>
+          {['Español', 'Inglés', 'Italiano', 'Francés', 'Portugués', 'Alemán'].map(lang => (<label key={lang} style={{display: 'block', marginBottom: '0.5rem'}}><input type="checkbox" checked={languages.includes(lang)} onChange={() => setLanguages(prev => prev.includes(lang) ? prev.filter(l => l !== lang) : [...prev, lang])} /> {lang}</label>))}
+          <label style={{display: 'flex', alignItems: 'center', marginBottom: '1rem'}}><input type="checkbox" checked={lookingForMateToday} onChange={(e) => setLookingForMateToday(e.target.checked)} style={{marginRight: '8px'}} /> <span>Estoy para unos mates hoy</span></label>
           <p style={{color: '#2D5016', fontWeight: 'bold', marginBottom: '1rem'}}>Vibe:</p>
           {['charla_profunda', 'risas', 'silencio', 'debate'].map(v => (
 <label key={v} style={{display: 'block', marginBottom: '0.75rem'}}>
