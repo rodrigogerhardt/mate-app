@@ -60,7 +60,7 @@ export default function Profile({ session, onProfileComplete }) {
           email: session.user.email,
           full_name: fullName,
           city: city,
-          how_they_dri: howTheyDrink,
+          how_they_drink: howTheyDrink,
           mood: mood.join(','),
           avatar_url: avatarUrl,
         })
