@@ -173,16 +173,20 @@ return (
 
       {avatarUrl && <img src={avatarUrl} alt="Avatar" style={{width: "100px", height: "100px", borderRadius: "50%", marginTop: "1rem"}} />}
       <p style={{color: '#2D5016', fontWeight: 'bold', marginBottom: '0.5rem'}}>Idiomas:</p>
-      {['Español', 'Inglés', 'Italiano', 'Francés', 'Portugués', 'Alemán'].map(lang => (
-        <label key={lang} style={{display: 'block', marginBottom: '0.5rem'}}>
-          <input
-            type="checkbox"
-            checked={languages.includes(lang)}
-            onChange={() => handleLanguageToggle(lang)}
-          />
-          {lang}
-        </label>
-      ))}
+      <select onChange={(e) => {if (e.target.value) handleLanguageToggle(e.target.value); e.target.value = ''}} style={{width: '100%', padding: '12px', marginBottom: '1rem', border: '2px solid #6DB3D0', borderRadius: '8px'}}>
+        <option value="">+ Agregar idioma</option>
+        {['Español', 'Inglés', 'Italiano', 'Francés', 'Portugués', 'Alemán'].filter(l => !languages.includes(l)).map(lang => (<option key={lang} value={lang}>{lang}</option>))}
+      </select>
+      {languages.length > 0 && (
+        <div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '1rem'}}>
+          {languages.map(lang => (
+            <span key={lang} style={{background: '#2D5016', color: 'white', padding: '6px 12px', borderRadius: '20px', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '6px'}}>
+              {lang}
+              <button onClick={() => handleLanguageToggle(lang)} style={{background: 'none', border: 'none', color: 'white', cursor: 'pointer', fontSize: '16px', padding: 0}}>✕</button>
+            </span>
+          ))}
+        </div>
+      )}
       <select value={howTheyDrink} onChange={(e) => setHowTheyDrink(e.target.value)}>
         <option value="tereré">Tereré</option>
         <option value="lavado">Lavado</option>
@@ -243,13 +247,10 @@ return (
         </div>
       )}
 
-      <label style={{display: 'flex', alignItems: 'center', marginBottom: '1rem'}}>
-        <input
-          type="checkbox"
-          checked={lookingForMateToday}
-          onChange={(e) => setLookingForMateToday(e.target.checked)}
-          style={{marginRight: '8px', width: '18px', height: '18px'}}
-        />
+      <label style={{display: 'flex', alignItems: 'center', marginBottom: '1rem', cursor: 'pointer'}}>
+        <div style={{width: '50px', height: '28px', background: lookingForMateToday ? '#2D5016' : '#ccc', borderRadius: '14px', position: 'relative', transition: 'background 0.3s', marginRight: '12px'}} onClick={(e) => setLookingForMateToday(!lookingForMateToday)}>
+          <div style={{width: '24px', height: '24px', background: 'white', borderRadius: '50%', position: 'absolute', top: '2px', left: lookingForMateToday ? '24px' : '2px', transition: 'left 0.3s'}} />
+        </div>
         <span style={{color: '#333'}}>Estoy para unos mates hoy</span>
       </label>
       <button onClick={handleSave} disabled={loading}>
